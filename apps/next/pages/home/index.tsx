@@ -4,25 +4,22 @@ import { H1, Paragraph, YStack, isWeb } from 'tamagui'
 import { isMobile } from 'react-device-detect'
 import { ReactNode, useEffect } from 'react'
 import { redirect, useRouter } from 'next/navigation'
-import { DesktopScreen } from 'app/features/desktop/screen'
 
 export default function Page() {
-
-  const router = useRouter();
+   const router = useRouter();
 
   useEffect(() => {
-    if (isWeb && isMobile) {
-      router.push('home')
+    if (isWeb && !isMobile) {
+      router.push('/')
     }
   }, [])
 
   return (
-
     <>
       <Head>
-        <title>Desktop</title>
+        <title>Home</title>
       </Head>
-      <DesktopScreen />
+      <HomeScreen/>
     </>
   )
 }

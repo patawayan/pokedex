@@ -2,10 +2,14 @@ import {
   Anchor,
   Button,
   H1,
+  isWeb,
+  isClient,
   Paragraph,
   Separator,
   Sheet,
+  Text,
   useToastController,
+  View,
   XStack,
   YStack,
 } from '@my/ui'
@@ -17,7 +21,6 @@ export function HomeScreen() {
   const linkProps = useLink({
     href: '/user/nate',
   })
-
   return (
     <YStack f={1} jc="center" ai="center" p="$4" gap="$4">
       <YStack gap="$4" bc="$background">

@@ -6925,6 +6925,8 @@ __metadata:
     burnt: "npm:^0.12.1"
     expo-constants: "npm:~14.4.2"
     expo-linking: "npm:~5.0.2"
+    pokeapi-js-wrapper: "npm:^1.2.4"
+    react-device-detect: "npm:^2.2.3"
     react-native-safe-area-context: "npm:4.6.3"
     solito: "npm:^3.0.0"
   languageName: unknown
@@ -7215,6 +7217,15 @@ __metadata:
   version: 4.7.0
   resolution: "axe-core@npm:4.7.0"
   checksum: 10/615c0f7722c3c9fcf353dbd70b00e2ceae234d4c17cbc839dd85c01d16797c4e4da45f8d27c6118e9e6b033fb06efd196106e13651a1b2f3a10e0f11c7b2f660
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
+  dependencies:
+    follow-redirects: "npm:^1.14.4"
+  checksum: 10/4c5a7a5a45c909b4ce73fbf54b1fbc52a2290fc37cc51e64f8ef2ba8ac5f76a2e369a08ddfd7ec50317528d5aa55f5987cc56fb320923ef87e1b87f8ff05b5ba
   languageName: node
   linkType: hard
 
@@ -11260,6 +11271,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.4":
+  version: 1.15.6
+  resolution: "follow-redirects@npm:1.15.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10/70c7612c4cab18e546e36b991bbf8009a1a41cf85354afe04b113d1117569abf760269409cb3eb842d9f7b03d62826687086b081c566ea7b1e6613cf29030bf7
+  languageName: node
+  linkType: hard
+
 "fontfaceobserver@npm:^2.1.0":
   version: 2.3.0
   resolution: "fontfaceobserver@npm:2.3.0"
@@ -12238,6 +12259,13 @@ __metadata:
   bin:
     image-size: bin/image-size.js
   checksum: 10/693dfb2f8bfda2aacd087ef7130fd997fd0aceca838291bae400646db1826b80108185d0062ea3c0365b12c3ab5145bb923fdc777fd94c4991840d47fe44ade3
+  languageName: node
+  linkType: hard
+
+"immediate@npm:~3.0.5":
+  version: 3.0.6
+  resolution: "immediate@npm:3.0.6"
+  checksum: 10/f9b3486477555997657f70318cc8d3416159f208bec4cca3ff3442fd266bc23f50f0c9bd8547e1371a6b5e82b821ec9a7044a4f7b944798b25aa3cc6d5e63e62
   languageName: node
   linkType: hard
 
@@ -13377,6 +13405,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lie@npm:3.1.1":
+  version: 3.1.1
+  resolution: "lie@npm:3.1.1"
+  dependencies:
+    immediate: "npm:~3.0.5"
+  checksum: 10/c2c7d9dcc3a9aae641f41cde4e2e2cd571e4426b1f5915862781d77776672dcbca43461e16f4d382c9a300825c15e1a4923f1def3a5568d97577e077a3cecb44
+  languageName: node
+  linkType: hard
+
 "lightningcss-darwin-arm64@npm:1.19.0":
   version: 1.19.0
   resolution: "lightningcss-darwin-arm64@npm:1.19.0"
@@ -13503,6 +13540,15 @@ __metadata:
   version: 3.2.1
   resolution: "loader-utils@npm:3.2.1"
   checksum: 10/177f5bb9b4c651263714fcd1b50682c1367b06893462529f510287775f9e461ca27a41bf364c8dffa9cd74ed9e8b1fdb30c03a526f6bcf12573bdc1a1644d086
+  languageName: node
+  linkType: hard
+
+"localforage@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "localforage@npm:1.10.0"
+  dependencies:
+    lie: "npm:3.1.1"
+  checksum: 10/d5c44be3a09169b013a3ebe252e678aaeb6938ffe72e9e12c199fd4307c1ec9d1a057ac2dfdfbb1379dfeec467a34ad0fc3ecd27489a2c43a154fb72b2822542
   languageName: node
   linkType: hard
 
@@ -16051,6 +16097,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pokeapi-js-wrapper@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "pokeapi-js-wrapper@npm:1.2.4"
+  dependencies:
+    axios: "npm:^0.24.0"
+    localforage: "npm:^1.10.0"
+  checksum: 10/f1830b5e675bb39f79896cc8b209b142bbdb52fc09a363ce4b16f6b02d84b4d685fc9b67bc5c57358a9af828aa8d80a35594f6289955cf57686035b0cf61acb1
+  languageName: node
+  linkType: hard
+
 "pokedex@workspace:.":
   version: 0.0.0-use.local
   resolution: "pokedex@workspace:."
@@ -16613,6 +16669,18 @@ __metadata:
   bin:
     rc: ./cli.js
   checksum: 10/5c4d72ae7eec44357171585938c85ce066da8ca79146b5635baf3d55d74584c92575fa4e2c9eac03efbed3b46a0b2e7c30634c012b4b4fa40d654353d3c163eb
+  languageName: node
+  linkType: hard
+
+"react-device-detect@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "react-device-detect@npm:2.2.3"
+  dependencies:
+    ua-parser-js: "npm:^1.0.33"
+  peerDependencies:
+    react: ">= 0.14.0"
+    react-dom: ">= 0.14.0"
+  checksum: 10/7152e2b216b3bb6fd75c7859d3441b89658695c629a13c5d374f076756705650be585d5c4dc19d9d34908ef1b61f19b52f1055d74dd7104b77d1b6f897ee09e0
   languageName: node
   linkType: hard
 
@@ -19205,6 +19273,13 @@ __metadata:
   version: 0.7.35
   resolution: "ua-parser-js@npm:0.7.35"
   checksum: 10/b6e99dc17599b04f2cd03c4de13593d8b300181402b65c95deeca6a507b96aef519e1d63fb8269af1532182ef41e61f0aca3dbae0f4add44521b5b836ccccc74
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.33":
+  version: 1.0.37
+  resolution: "ua-parser-js@npm:1.0.37"
+  checksum: 10/56508f2428ebac64382c4d41da14189e5013e3e2a5f5918aff4bee3ba77df1f4eaad6f81f90c24999f1cf12cc1596764684497fec07e0ff5182ce9a323a8c05b
   languageName: node
   linkType: hard
 
