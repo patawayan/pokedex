@@ -54,7 +54,7 @@ export const PokeList = () => {
 
   return (
     <ScrollView flexGrow={1}>
-      <YStack ai="center" gap="$2" pt="$5" pb="$13">
+      <YStack ai="center" gap="$2" pt="$5" pb="$13" borderRadius={'$0.75'}>
         {pokeData?.map((item: Pokemon, index) => (
           <PokeListItem key={`${item.name}-${item.id}`} pokemon={item}>
             {/** Start loading new pokemon when reaching near the end of the list */}
