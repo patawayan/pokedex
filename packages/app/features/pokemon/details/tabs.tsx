@@ -1,25 +1,31 @@
 'use client';
 
-import { H5, Tabs, TabsContentProps, Text, View, useToastController } from '@my/ui';
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
-import { PokemonSpecies } from 'app/utils/types';
-import React, { useState } from 'react';
+import { Tabs, TabsContentProps, Text, View, YStack } from '@my/ui';
+import React, { useContext, useEffect, useState } from 'react';
 import { AboutContent } from './about';
-import { Pokemon } from 'packages/app/utils/types';
 import { StatsContent } from './stats';
 import { EvolutionsContent } from './evolutions';
+import { PokemonContext } from 'app/provider/Pokemon';
 
+/** Child Tab Props */
 interface PokemonDetailsTabsProps extends React.ComponentProps<typeof View> {}
 
-type pokemonTabTypes = 'about' | 'stats' | 'evolutions';
+/** Pokemon Tab Types */
+type PokemonTabTypes = 'about' | 'stats' | 'evolutions';
 
+/**
+ * Interface for Pokemon Tab data
+ */
 interface PokemonTabs {
-  key: pokemonTabTypes;
+  key: PokemonTabTypes;
   title: string;
   component: React.FC<TabsContentProps>;
 }
 
-const PokemonTabKeys: PokemonTabs[] = [
+/**
+ * Pokemon Tab Data
+ */
+const PokemonTabData: PokemonTabs[] = [
   {
     key: 'about',
     title: 'About',
@@ -37,17 +43,27 @@ const PokemonTabKeys: PokemonTabs[] = [
   },
 ];
 
+/** Custom Tab Title */
 const TabTitle = (props: any) => {
   return <Text fontSize="$3" fontWeight="500" lineHeight="$md" fontFamily="$body" {...props} />;
 };
 
+/**
+ * Pokemon Details Tabs
+ */
 export const PokemonDetailsTabs = (props: PokemonDetailsTabsProps) => {
+  const { currentPokemon } = useContext(PokemonContext);
+  const [currentTab, setCurrentTab] = useState<PokemonTabTypes>(PokemonTabData[0].key);
+
+  /** Set initial tab */
+  useEffect(() => {
+    setCurrentTab(PokemonTabData[0].key);
+  }, [currentPokemon]);
+
   return (
-    <View
-      w={'100%'}
-      px="$10"
+    <YStack
+      flexGrow={1}
       pt="$7"
-      pb="$7"
       backgroundColor="$white"
       borderRadius="$7.5"
       borderBottomLeftRadius="$none"
@@ -55,14 +71,14 @@ export const PokemonDetailsTabs = (props: PokemonDetailsTabsProps) => {
       {...props}
     >
       <Tabs
-        defaultValue={PokemonTabKeys[0].key}
+        value={currentTab}
+        onValueChange={(value) => setCurrentTab(value as PokemonTabTypes)}
         orientation="horizontal"
         flexDirection="column"
-        flex={1}
-        p="$2.5"
+        pt="$2.5"
       >
-        <Tabs.List unstyled p="0" gap="$2" justifyContent="space-between">
-          {PokemonTabKeys.map((tab) => (
+        <Tabs.List unstyled px="$10" gap="$2" justifyContent="space-between">
+          {PokemonTabData.map((tab) => (
             <Tabs.Tab
               key={`tab-${tab.key}`}
               w="auto"
@@ -78,10 +94,10 @@ export const PokemonDetailsTabs = (props: PokemonDetailsTabsProps) => {
           ))}
         </Tabs.List>
 
-        {PokemonTabKeys.map((Tab) => (
+        {PokemonTabData.map((Tab) => (
           <Tab.component flexGrow={1} value={Tab.key} key={Tab.key} />
         ))}
       </Tabs>
-    </View>
+    </YStack>
   );
 };

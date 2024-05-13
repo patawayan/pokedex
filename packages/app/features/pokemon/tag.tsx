@@ -2,30 +2,14 @@
 
 import { Text, View, YStack } from '@my/ui';
 import { capitalize } from 'app/utils/textUtils';
-import { Pokemon } from 'packages/app/utils/types';
+import { Pokemon, PokemonTypes } from 'packages/app/utils/types';
 import React from 'react';
 
-export type PokemonTypes =
-  | 'grass'
-  | 'poison'
-  | 'fire'
-  | 'flying'
-  | 'water'
-  | 'bug'
-  | 'normal'
-  | 'electric'
-  | 'ground'
-  | 'fairy'
-  | 'fighting'
-  | 'psychic'
-  | 'rock'
-  | 'ghost'
-  | 'ice'
-  | 'dragon'
-  | 'steel'
-  | 'dark'
-  | 'stellar';
-
+/**
+ * A map of Pokemon types to their corresponding colors.
+ *
+ * This map is used to color the TypeTag component.
+ */
 const PokemonTypeColors: Record<PokemonTypes, string> = {
   normal: '$hillary',
   fire: '$sun',
@@ -48,6 +32,9 @@ const PokemonTypeColors: Record<PokemonTypes, string> = {
   stellar: '$summerSky',
 };
 
+/**
+ * A component that displays a Pokemon's type.
+ */
 export const TypeTag = ({ type }: { type: PokemonTypes }) => {
   return (
     <View bg={PokemonTypeColors[type]} w="$25" p="$2" ai="center" borderRadius="$7.5">
@@ -58,6 +45,9 @@ export const TypeTag = ({ type }: { type: PokemonTypes }) => {
   );
 };
 
+/**
+ * A component that displays a list of Pokemon types.
+ */
 export const PokemonTypesList = ({
   pokemon,
   ...props

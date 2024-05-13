@@ -1,5 +1,5 @@
 import { Input, XStack, YStack, styled } from '@my/ui';
-import { Search } from '@tamagui/lucide-icons';
+import { Search, XCircle } from '@tamagui/lucide-icons';
 import { PokemonSearchContext } from 'app/provider/PokemonSearch';
 import { useContext } from 'react';
 
@@ -31,6 +31,9 @@ export const SearchComponent = () => {
           value={searchValue}
           onChangeText={setSearchValue}
         />
+        {!!searchValue && (
+          <XCircle size="$6" color="$grayLight" onTouchEnd={() => setSearchValue('')} />
+        )}
       </XStack>
     </YStack>
   );

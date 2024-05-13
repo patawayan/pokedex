@@ -12,7 +12,6 @@ export default function Page() {
       <Head>
         <title>{currentPokemon ? capitalize(currentPokemon.name) : 'Pokemon'}</title>
       </Head>
-
       <PokemonScreen />
     </>
   );

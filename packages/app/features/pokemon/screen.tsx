@@ -1,39 +1,69 @@
 'use client';
 
-import { Button, H3, Image, Paragraph, ScrollView, View, XStack, YStack, ZStack } from '@my/ui';
-import { ArrowLeft, ChevronLeft } from '@tamagui/lucide-icons';
+import {
+  Button,
+  H3,
+  Image,
+  Paragraph,
+  ScrollView,
+  View,
+  XStack,
+  YStack,
+  ZStack,
+  GetRef,
+  TamaguiElement,
+} from '@my/ui';
+import { ArrowLeft } from '@tamagui/lucide-icons';
 import { PokemonContext } from 'app/provider/Pokemon';
 import { PokedexSvg } from 'app/assets/pokedexSvg';
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { createParam } from 'solito';
-import { useLink } from 'solito/link';
 import { useRouter } from 'solito/router';
 import { PokemonTypesList } from './tag';
 import { PokemonDetailsTabs } from './details/tabs';
-import { capitalize, paddedNum } from 'app/utils/textUtils';
+import { paddedNum } from 'app/utils/textUtils';
 import { LoadingScreen } from '../loading/screen';
 import { formatLabelName } from './details/detail';
 
+/**
+ * Used to get the id from the url
+ */
 const { useParam } = createParam<{ id: string }>();
 
+/**
+ * The main screen for pokemon details
+ */
 export const PokemonScreen = () => {
+  // ==================================== STATES ====================================
   const [id] = useParam('id');
-  const { currentPokemon, currentPokemonSpecies, doSetCurrentPokemon, clearCurrentPokemon } =
-    useContext(PokemonContext);
+
+  const { currentPokemon, doSetCurrentPokemon, clearCurrentPokemon } = useContext(PokemonContext);
+
   const router = useRouter();
 
+  /** Use to scroll to top on change of current pokemon */
+  const scrollRef = useRef<GetRef<TamaguiElement>>();
+
+  // ==================================== CALLBACKS ====================================
+
+  /** Go back to previous screen */
+  const goBack = useCallback(() => {
+    clearCurrentPokemon();
+    router.push('/');
+  }, [clearCurrentPokemon, router]);
+
+  // ==================================== EFFECTS ====================================
+
+  /** Scroll to top on change of current pokemon */
+  useEffect(() => {
+    // @ts-ignore
+    scrollRef?.current?.scrollTo({ x: 0, y: 0, animated: true });
+  }, [currentPokemon]);
+
+  /** Set current pokemon on load of screen */
   useEffect(() => {
     if (id) doSetCurrentPokemon(id);
   }, [id]);
-
-  const goBack = useCallback(() => {
-    clearCurrentPokemon();
-    router.back();
-  }, [clearCurrentPokemon, router]);
-
-  useEffect(() => {
-    console.log(currentPokemon);
-  }, [currentPokemon]);
 
   return currentPokemon ? (
     <YStack h="100vh" w="100%" ai="center" jc="center" bc="$yellow">
@@ -45,8 +75,9 @@ export const PokemonScreen = () => {
             : 'Pokemon'}
         </H3>
       </XStack>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <ZStack minWidth="100vw" minHeight="100px" height="100px">
+      {/** @ts-ignore */}
+      <ScrollView ref={scrollRef} flexGrow={1} contentContainerStyle={{ flexGrow: 1 }}>
+        <ZStack minWidth="100vw" minHeight="100px" height="100px" overflow="hidden">
           <View y={-70} w="min-content">
             <PokedexSvg height={235} width={235} fillOpacity={0.5} />
           </View>

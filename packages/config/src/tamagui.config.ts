@@ -5,8 +5,22 @@ import { createMedia } from '@tamagui/react-native-media-driver';
 
 import { animations } from '@my/ui/src/animations';
 
+const generateSizes = (until = 100) => {
+  const sizes = {
+    0: 0,
+    0.25: 1,
+    0.5: 2,
+    0.75: 3,
+  };
+
+  for (let i = 1; i < until; i += 0.5) {
+    sizes[i] = i * 4;
+  }
+
+  return sizes;
+};
+
 const customTokens = createTokens({
-  ...tokens,
   color: {
     white: '#FFFFFF',
     black: '#000000',
@@ -39,26 +53,19 @@ const customTokens = createTokens({
   },
   radius: {
     none: 0,
-    3.75: 15,
-    7.5: 30,
-    15: 60,
+    ...generateSizes(),
   },
   size: {
     none: 0,
     true: 12,
-    1: 4,
-    2: 8,
-    3: 12,
-    3.75: 15,
-    4: 16,
-    7.5: 30,
-    12.5: 50,
-    15: 60,
-    25: 100,
-    35: 140,
-    50: 200,
-    55: 220,
+    ...generateSizes(),
   },
+  space: {
+    none: 0,
+    true: 12,
+    ...generateSizes(),
+  },
+  zIndex: tokens.zIndex,
 });
 
 const fonts = createFont({

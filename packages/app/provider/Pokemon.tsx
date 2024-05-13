@@ -1,48 +1,129 @@
-'use client';
-
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { NameUrl, Pokemon, PokemonRequest, PokemonSpecies } from '../utils/types';
-import { ConsoleView } from 'react-device-detect';
 import { useToastController } from '@my/ui';
 import { AppContext } from './App';
 
-interface PokemonContextProperties {
-  pokeData: Pokemon[];
-  doSetCurrentPokemon: (id: string) => Promise<void>;
-  currentPokemon?: Pokemon;
-  currentPokemonSpecies?: PokemonSpecies;
-  clearCurrentPokemon: () => void;
-  nextUrl?: string;
-  loadMorePokemon: () => Promise<void>;
-  pokemonUrls?: NameUrl[];
+/**
+ * Context for the pokemon data and functions
+ */
+export interface PokemonContextProperties {
+  /**
+   * The list of all pokemon urls
+   */
   allPokemonUrls?: NameUrl[];
-  setPokemonUrls: (urls: NameUrl[]) => void;
-  isThereMoreToLoad: boolean;
-  isLoadingSpecies: boolean;
+
+  /**
+   * The current pokemon
+   */
+  currentPokemon?: Pokemon;
+
+  /**
+   * The current pokemon's species
+   */
+  currentPokemonSpecies?: PokemonSpecies;
+
+  /**
+   * Whether the pokemon data is loading
+   */
   isLoading: boolean;
+
+  /**
+   * Whether the species data is loading
+   */
+  isLoadingSpecies: boolean;
+
+  /**
+   * Whether there are more pokemon to load
+   */
+  isThereMoreToLoad: boolean;
+
+  /**
+   * The next url in the list of pokemon
+   */
+  nextUrl?: string;
+
+  /**
+   * Array of pokemon data
+   */
+  pokeData: Pokemon[];
+
+  /**
+   * The list of urls for all pokemon
+   */
+  pokemonUrls?: NameUrl[];
+
+  /**
+   * Clears the current pokemon
+   */
+  clearCurrentPokemon: () => void;
+
+  /**
+   * Sets the current pokemon with the given id
+   * @param id The id of the pokemon to set as the current one
+   */
+  doSetCurrentPokemon: (id: string) => Promise<void>;
+
+  /**
+   * Loads more pokemon
+   */
+  loadMorePokemon: () => Promise<void>;
+
+  /**
+   * Sets the list of pokemon urls
+   * @param urls The list of urls to set
+   */
+  setPokemonUrls: (urls: NameUrl[]) => void;
 }
 
+/**
+ * Initializes the pokemon context
+ */
 export const PokemonContext = createContext<PokemonContextProperties>({
-  pokeData: [],
-  doSetCurrentPokemon: async (id: string) => {},
-  clearCurrentPokemon: () => {},
-  loadMorePokemon: async () => {},
-  pokemonUrls: [],
-  setPokemonUrls: async (urls: NameUrl[]) => {},
-  isThereMoreToLoad: true,
-  isLoadingSpecies: false,
   isLoading: false,
+  isLoadingSpecies: false,
+  isThereMoreToLoad: true,
+  pokeData: [],
+  pokemonUrls: [],
+  clearCurrentPokemon: () => {},
+  doSetCurrentPokemon: async (id: string) => {},
+  loadMorePokemon: async () => {},
+  setPokemonUrls: async (urls: NameUrl[]) => {},
 });
 
+/**
+ * Pokemon Data COntext Provider
+ */
 export const PokemonProvider = ({ children }) => {
   const { show } = useToastController();
   const { getJSONData } = useContext(AppContext);
 
+  // ======================================= STATES ======================================
+
+  /**
+   * Array of pokemon data
+   */
   const [pokeData, setPokeData] = useState<Pokemon[]>([]);
+
+  /**
+   * The current pokemon
+   */
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon>();
+
+  /**
+   * The current pokemon's species
+   */
   const [currentPokemonSpecies, setCurrentPokemonSpecies] = useState<PokemonSpecies>();
+
+  /**
+   * Whether the pokemon data is loading
+   */
   const [isLoading, setIsLoading] = useState(false);
+
+  /**
+   * Whether the species data is loading
+   */
   const [isLoadingSpecies, setIsLoadingSpecies] = useState(false);
+
   /**
    * All pokemon data urls
    */
@@ -56,6 +137,11 @@ export const PokemonProvider = ({ children }) => {
    * Numerical value representing how many pokemon have been loaded
    */
   const [pokemonLoaded, setPokemonLoaded] = useState(0);
+
+  /** True if there are more pokemon to load */
+  const isThereMoreToLoad = pokemonUrls.length > pokemonLoaded && isLoading;
+
+  // ======================================== FUNCTIONS =======================================
 
   /**
    * Initializes the pokemon urls
@@ -76,6 +162,10 @@ export const PokemonProvider = ({ children }) => {
     setPokemonUrls(urls);
   };
 
+  /**
+   * Does the actual setting of the current pokemon
+   * @param id
+   */
   const doSetCurrentPokemon = async (id: string) => {
     const idNumber = parseInt(id);
 
@@ -98,6 +188,9 @@ export const PokemonProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Clears the current pokemon data and pokemon species
+   */
   const clearCurrentPokemon = () => {
     setCurrentPokemon(undefined);
     setCurrentPokemonSpecies(undefined);
@@ -121,27 +214,29 @@ export const PokemonProvider = ({ children }) => {
       const additionalPokeData = await Promise.allSettled(
         pokeUrls.map((pokemon: NameUrl) => getJSONData(pokemon.url) as Promise<Pokemon>)
       );
-      const newPokeData = [
-        ...pokeData,
+
+      // Add the additional pokemon count to the loaded pokemon count
+      setPokemonLoaded((currentValue) => currentValue + 20);
+
+      setPokeData((currentValue) => [
+        ...currentValue,
         ...additionalPokeData.flatMap((data: PokemonRequest) =>
           data.status === 'fulfilled' ? data.value : []
         ),
-      ];
-
-      setPokemonLoaded((currentValue) => currentValue + 20);
-      setPokeData(newPokeData);
+      ]);
     } finally {
       setIsLoading(false);
     }
   }, [isLoading, pokemonUrls, pokemonLoaded, pokeData]);
 
-  /** True if there are more pokemon to load */
-  const isThereMoreToLoad = pokemonUrls.length > pokemonLoaded;
+  // ======================================= EFFECTS =======================================
 
+  /** Initializes the pokemon urls */
   useEffect(() => {
     initializePokemonUrls();
   }, []);
 
+  /** Loads more pokemon when pokemonUrls changes */
   useEffect(() => {
     if (pokemonUrls.length > 0) {
       loadMorePokemon();
@@ -151,18 +246,18 @@ export const PokemonProvider = ({ children }) => {
   return (
     <PokemonContext.Provider
       value={{
-        pokeData,
-        doSetCurrentPokemon,
+        allPokemonUrls,
         currentPokemon,
         currentPokemonSpecies,
-        clearCurrentPokemon,
-        loadMorePokemon,
-        pokemonUrls,
-        allPokemonUrls,
-        setPokemonUrls: doSetPokemonUrls,
-        isThereMoreToLoad,
-        isLoadingSpecies,
         isLoading,
+        isLoadingSpecies,
+        isThereMoreToLoad,
+        pokeData,
+        pokemonUrls,
+        clearCurrentPokemon,
+        doSetCurrentPokemon,
+        loadMorePokemon,
+        setPokemonUrls: doSetPokemonUrls,
       }}
     >
       {children}

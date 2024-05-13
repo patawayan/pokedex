@@ -6,12 +6,30 @@ import { PokemonContext } from 'app/provider/Pokemon';
 import { AppContext } from 'app/provider/App';
 import { EvolutionChain, Chain, NameUrl, PokemonSpecies } from 'app/utils/types';
 
+/**
+ * Evolution Chain of the current Pokemon
+ */
 export const EvolutionsContent = (props: TabsContentProps) => {
   const { currentPokemonSpecies } = useContext(PokemonContext);
   const { getJSONData } = useContext(AppContext);
+
+  // ========================================== STATES ========================================
+
+  /**
+   * Data of the pokemon in the evolution chain of the current Pokemon.
+   */
   const [evolutions, setEvolutions] = useState<Pokemon[]>([]);
+
+  /**
+   * Indicates if the evolution chain data is loading
+   */
   const [isLoading, setIsLoading] = useState(true);
 
+  // ======================================== FUNCTIONS =======================================
+
+  /**
+   * A recursive function to return the evolution chain as a list of urls
+   */
   const recursiveGetEvolutionChain = (chain: Chain): NameUrl[] => {
     return [
       chain.species,
@@ -21,13 +39,21 @@ export const EvolutionsContent = (props: TabsContentProps) => {
     ];
   };
 
+  /**
+   * Retrieves the evolution chain of the current pokemon
+   *
+   * @param url The url of the evolution chain
+   */
   const getEvolutionChain = async (url: string) => {
     try {
       setIsLoading(true);
 
       const evolutionChain: EvolutionChain = await getJSONData(url);
 
+      // Get the urls of the pokemon in the evolution chain
       const evolutionChainUrlList = recursiveGetEvolutionChain(evolutionChain.chain);
+
+      // Get the pokemon data for each pokemon in the evolution chain
       const evolutionList = await Promise.allSettled(
         evolutionChainUrlList.map(async (species) => {
           const pokemonSpecies: PokemonSpecies = await getJSONData(species.url);
@@ -47,6 +73,9 @@ export const EvolutionsContent = (props: TabsContentProps) => {
     }
   };
 
+  // ======================================== EFFECTS ========================================
+
+  /** Set the evolution chain once the current pokemon species is loaded */
   useEffect(() => {
     if (currentPokemonSpecies && currentPokemonSpecies.evolution_chain) {
       getEvolutionChain(currentPokemonSpecies.evolution_chain.url);
@@ -64,7 +93,7 @@ export const EvolutionsContent = (props: TabsContentProps) => {
                 pokemon={pokemon}
               />
             ))}
-          <YStack h="$4" w="100%" ai="center">
+          <YStack w="100%" ai="center">
             {isLoading && <Spinner color="$hillary" size="large" p="$3" />}
             {evolutions.length === 0 && !isLoading && (
               <Text color="$hillary">No evolutions found</Text>

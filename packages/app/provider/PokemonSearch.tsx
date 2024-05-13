@@ -1,25 +1,41 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { NameUrl, Pokemon, PokemonRequest, PokemonSpecies } from '../utils/types';
 import { useDebounceValue } from '@my/ui';
-import { ConsoleView } from 'react-device-detect';
 import { PokemonContext } from './Pokemon';
 
+/**
+ * Pokemon Search Context Properties
+ */
 interface PokemonSearchContextProperties {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
+/**
+ * Pokemon Search Context
+ */
 export const PokemonSearchContext = createContext<PokemonSearchContextProperties>({
   searchValue: '',
   setSearchValue: () => {},
 });
 
+/**
+ * Pokemon Search Provider
+ * Extracted into a provider to persist search value throughout the app
+ */
 export const PokemonSearchProvider = ({ children }) => {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const { allPokemonUrls, setPokemonUrls } = useContext(PokemonContext);
+  // ==================================== STATES ====================================
 
+  const { allPokemonUrls, setPokemonUrls } = useContext(PokemonContext);
+  /** Search value used for filtering */
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  // ==================================== DERIVED STATES ====================================
+
+  /**
+   * Pokemon URLs filtered by search
+   */
   const filteredPokemonUrls = useDebounceValue(
     useMemo(() => {
       if (!searchValue) return [];
@@ -30,17 +46,24 @@ export const PokemonSearchProvider = ({ children }) => {
     1500
   );
 
+  // ==================================== EFFECTS ====================================
+
+  /**
+   * Sets pokemon urls when filteredPokemonUrls changes
+   */
   useEffect(() => {
     if (!!searchValue && filteredPokemonUrls) {
       setPokemonUrls(filteredPokemonUrls);
     }
   }, [filteredPokemonUrls]);
 
+  /**
+   * Reset pokemon urls when searchValue is cleared
+   */
   useEffect(() => {
     if (!searchValue && allPokemonUrls) {
       setPokemonUrls(allPokemonUrls);
     }
-    console.log('searchvalue', searchValue);
   }, [searchValue]);
 
   return (

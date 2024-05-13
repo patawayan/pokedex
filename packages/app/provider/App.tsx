@@ -2,14 +2,23 @@
 
 import { createContext } from 'react';
 
+/**
+ * Provides the context for the app
+ */
 interface AppContextProperties {
   getJSONData: (url: string) => Promise<any>;
 }
 
+/**
+ * Provides the context for the app
+ */
 export const AppContext = createContext<AppContextProperties>({
   getJSONData: async () => {},
 });
 
+/**
+ * Provides the context for the app
+ */
 export const AppProvider = ({ children }) => {
   /**
    * Custom Fetch function that uses force-cache and returns the data as JSON
