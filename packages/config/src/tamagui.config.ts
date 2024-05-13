@@ -1,77 +1,118 @@
-import { createTamagui } from 'tamagui'
-import { createInterFont } from '@tamagui/font-inter'
-import { shorthands } from '@tamagui/shorthands'
-import { tokens } from '@tamagui/themes/v2'
-import { themes } from '@tamagui/themes/v2-themes'
-import { createMedia } from '@tamagui/react-native-media-driver'
+import { createFont, createTamagui, createTokens } from 'tamagui';
+import { shorthands } from '@tamagui/shorthands';
+import { grayDark, tokens } from '@tamagui/themes/v2';
+import { createMedia } from '@tamagui/react-native-media-driver';
 
-import { animations } from '@my/ui/src/animations'
+import { animations } from '@my/ui/src/animations';
 
-const headingFont = createInterFont({
-  size: {
-    6: 15,
-  },
-  transform: {
-    6: 'uppercase',
-    7: 'none',
-  },
-  weight: {
-    6: '400',
-    7: '700',
-  },
+const customTokens = createTokens({
+  ...tokens,
   color: {
-    6: '$colorFocus',
-    7: '$color',
+    white: '#FFFFFF',
+    black: '#000000',
+    grayLight: '#8A8A8A',
+    gray: '#959595',
+    grayDark: '#4A4A4A',
+    grayDarker: '#363636',
+    prussianBlue: '#02385A',
+    pastelGreen: '#63E760',
+    mediumGoldenRod: '#EAE8A6',
+    hillary: '#A8A878',
+    sun: '#F08030',
+    cornflowerBlue: '#6890F0',
+    saffron: '#F8D030',
+    mantisGreen: '#78C850',
+    regentStBlue: '#98D8D8',
+    fireBrick: '#C03028',
+    violetBlue: '#A040A0',
+    chenin: '#E0C068',
+    mediumSlateBlue: '#A890F0',
+    brinkPink: '#F85888',
+    bahia: '#A8B820',
+    hokeyPokey: '#B8A038',
+    butterflyBlush: '#705898',
+    hanPurple: '#7038F8',
+    quincy: '#705848',
+    blueHaze: '#B8B8D0',
+    chantilly: '#F0B6BC',
+    summerSky: '#35ACE7',
+  },
+  radius: {
+    none: 0,
+    3.75: 15,
+    7.5: 30,
+    15: 60,
+  },
+  size: {
+    none: 0,
+    true: 12,
+    1: 4,
+    2: 8,
+    3: 12,
+    3.75: 15,
+    4: 16,
+    7.5: 30,
+    12.5: 50,
+    15: 60,
+    25: 100,
+    35: 140,
+    50: 200,
+    55: 220,
+  },
+});
+
+const fonts = createFont({
+  family: 'Roboto, Arial, sans-serif',
+  size: {
+    3: 12,
+    3.5: 14,
+    4.5: 18,
+  },
+  lineHeight: {
+    xs: 14.06,
+    sm: 17.5,
+    md: 18,
+    lg: 22.5,
   },
   letterSpacing: {
-    5: 2,
-    6: 1,
-    7: 0,
-    8: -1,
-    9: -2,
-    10: -3,
-    12: -4,
-    14: -5,
-    15: -6,
+    true: 0.16,
   },
-  face: {
-    700: { normal: 'InterBold' },
-  },
-})
+});
 
-const bodyFont = createInterFont(
-  {
-    face: {
-      700: { normal: 'InterBold' },
-    },
-  },
-  {
-    sizeSize: (size) => Math.round(size * 1.1),
-    sizeLineHeight: (size) => Math.round(size * 1.1 + (size > 20 ? 10 : 10)),
-  }
-)
+/**
+ * Dark theme to be set at a later date
+ */
+const defaultTheme = {
+  background: customTokens.color.white,
+  color: customTokens.color.black,
+  yellow: customTokens.color.mediumGoldenRod,
+  grayLight: customTokens.color.grayLight,
+  gray: customTokens.color.gray,
+  grayDark: customTokens.color.grayDark,
+  grayDarker: customTokens.color.grayDarker,
+  title: customTokens.color.prussianBlue,
+};
 
 export const config = createTamagui({
   defaultFont: 'body',
   animations,
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
-  
+
   // highly recommended to turn this on if you are using shorthands
   // to avoid having multiple valid style keys that do the same thing
   // we leave it off by default because it can be confusing as you onboard.
   onlyAllowShorthands: false,
   shorthands,
-
   fonts: {
-    body: bodyFont,
-    heading: headingFont,
+    body: fonts,
+    heading: fonts,
   },
-  settings: {
-    allowedStyleValues: 'somewhat-strict',
+  tokens: customTokens,
+  themes: {
+    dark: defaultTheme,
+    light: defaultTheme,
   },
-  themes,
-  tokens,
   media: createMedia({
     xs: { maxWidth: 660 },
     sm: { maxWidth: 800 },
@@ -88,7 +129,7 @@ export const config = createTamagui({
     hoverNone: { hover: 'none' },
     pointerCoarse: { pointer: 'coarse' },
   }),
-})
+});
 
 // for the compiler to find it
-export default config
+export default config;

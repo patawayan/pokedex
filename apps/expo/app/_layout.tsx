@@ -1,18 +1,19 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
-import { Provider } from 'app/provider'
-import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
-import { useColorScheme } from 'react-native'
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { Provider } from 'app/provider';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import { useColorScheme } from 'react-native';
 
 export default function HomeLayout() {
   const [loaded] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  })
-  const scheme = useColorScheme()
+    Roboto: Roboto_400Regular,
+    RobotoBold: Roboto_700Bold,
+  });
+  const scheme = useColorScheme();
 
   if (!loaded) {
-    return null
+    return null;
   }
   return (
     <Provider>
@@ -20,5 +21,5 @@ export default function HomeLayout() {
         <Stack />
       </ThemeProvider>
     </Provider>
-  )
+  );
 }

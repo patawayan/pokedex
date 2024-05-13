@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base",
-  "include": ["app/**/*.ts", "app/**/*.tsx"],
+  "include": ["app/**/*.ts", "app/**/*.tsx", "../next/pages/index.tsx", "../next/pages/not-found.tsx"],
   "compilerOptions": {
     "composite": true,
     "jsx": "react-jsx"

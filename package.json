@@ -7,7 +7,8 @@
   ],
   "scripts": {
     "android": "cd apps/expo && yarn android",
-    "add:js": "cd packages/app; yarn add",
+    "yarn:web": "cd packages/app; yarn",
+    "yarn:native": "cd apps/expo; yarn",
     "native": "cd apps/expo && yarn start",
     "watch": "yarn workspaces foreach -pi run watch",
     "vercel:install": "yarn set version 3.5 && yarn install",
@@ -32,8 +33,10 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@manypkg/cli": "^0.19.1",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
     "check-dependency-version-consistency": "^3.0.3",
-    "eslint": "^8.21.0",
+    "eslint": "^9.2.0",
     "node-gyp": "^9.3.1",
     "prettier": "^2.7.1",
     "turbo": "^1.10.3",
