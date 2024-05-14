@@ -30,6 +30,7 @@ export const SearchComponent = (props: React.ComponentProps<typeof YStack>) => {
           placeholder="Search Pokedex"
           value={searchValue}
           onChangeText={setSearchValue}
+          h="$4.5"
         />
         {!!searchValue && (
           <XCircle size="$6" color="$grayLight" onTouchEnd={() => setSearchValue('')} />

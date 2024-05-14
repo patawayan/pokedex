@@ -5,11 +5,11 @@ import { SearchComponent } from '../pokemon/search';
 /**
  * Pokedex Home Screen
  */
-export const HomeScreen = () => {
+export const HomeScreen = ({ children }: { children?: React.ReactNode }) => {
   return (
     <YStack h="100vh">
       <SearchComponent flexBasis="$19" />
-      <PokeList flexBasis="calc(100vh - 76px)" />
+      {children}
     </YStack>
   );
 };

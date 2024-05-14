@@ -1,5 +1,6 @@
-import { Text, getTokens } from '@my/ui';
+import { YStack, getTokens } from '@my/ui';
 import { HomeScreen } from 'app/features/home/screen';
+import { PokeListNative } from 'app/features/pokemon/list/native';
 import { Stack } from 'expo-router';
 
 export default function Screen() {
@@ -14,7 +15,11 @@ export default function Screen() {
           statusBarStyle: 'dark',
         }}
       />
-      <HomeScreen />
+      <HomeScreen>
+        <YStack flexBasis="calc(100vh - 76px)" pt="$5">
+          <PokeListNative />
+        </YStack>
+      </HomeScreen>
     </>
   );
 }
