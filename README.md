@@ -101,8 +101,7 @@ When scrolling further down the list (specifically when approaching within 10 po
 
 #### Search function
 
-Search function only searches by name of pokemon.
-It does substring matching i.e. it searches for the search value as a substring in the pokemon's name.
+Search function only searches by name of pokemon. It searches by substring matching i.e. it searches for the search value as a substring in the pokemon's name.
 
 ---
 
@@ -117,21 +116,22 @@ The page will display a loading screen first if the pokemon's data is not loaded
 #### About Tab
 
 The Pokemon Species data will only start being retrieved once the base Pokemon data is done loading.
+
 While the species data is not available yet, a Spinner is displayed inside the tab under `Height`.
 
 ---
 
 #### Base Stats Tab
 
-The numerical value of each stat is used to set the length of the green bars of each stat.
-Except for when the value surpasses the length of it's container (e.g. high HP pokemon like `Blissey`). In that case, the green bar is limited to the max width of the parent container.
+The numerical value of each stat is used to set the length of the green bars of each stat (i.e. 20 HP results in a green bar with `20px` width).
+
+Except for when the value surpasses the length of it's container (example: high HP pokemon like `Blissey`). In that case, the green bar is limited to the max width of the parent container.
 
 ---
 
 #### Evolution Tab
 
-Reuses the Pokemon List Item component to display the evolution chain in a mini PokeList.
-Clicking on a pokemon in the chain then redirects to that pokemon's details screen.
+Reuses the Pokemon List Item component to display the evolution chain in a mini PokeList. Clicking on a pokemon in the chain then redirects to that pokemon's details screen.
 
 ## Live Deployment
 
@@ -139,6 +139,6 @@ Clicking on a pokemon in the chain then redirects to that pokemon's details scre
 
 - https://pokedex-next-seven-orcin.vercel.app/
 
-#### Appetize.io
+#### Mobile App
 
 - // TODO: Setup live app
