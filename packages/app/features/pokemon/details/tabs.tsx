@@ -84,12 +84,18 @@ export const PokemonDetailsTabs = (props: PokemonDetailsTabsProps) => {
               w="auto"
               unstyled
               p="0"
+              flexDirection="column"
               value={tab.key}
-              focusStyle={{
-                outlineWidth: 2,
-              }}
             >
               <TabTitle>{tab.title}</TabTitle>
+              <View
+                h="$0.75"
+                w="100%"
+                mt="$2"
+                backgroundColor="$grayMoreDarker"
+                borderRadius="$3.75"
+                opacity={currentTab === tab.key ? 1 : 0}
+              />
             </Tabs.Tab>
           ))}
         </Tabs.List>
