@@ -1,4 +1,4 @@
-import { PokemonScreen } from 'app/features/pokemon/screen';
+import { PokemonScreen } from 'app/features/pokemon/details/screen';
 import { PokemonContext } from 'app/provider/Pokemon';
 import Head from 'next/head';
 import { useContext } from 'react';

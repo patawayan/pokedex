@@ -2,7 +2,7 @@
 
 import { Text, View, YStack } from '@my/ui';
 import { capitalize } from 'app/utils/textUtils';
-import { Pokemon, PokemonTypes } from 'packages/app/utils/types';
+import { Pokemon, PokemonTypes } from 'app/utils/types';
 import React from 'react';
 
 /**

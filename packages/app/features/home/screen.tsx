@@ -1,5 +1,5 @@
 import { YStack } from '@my/ui';
-import { SearchComponent } from './search';
+import { SearchComponent } from '../pokemon/search';
 import { PokeList } from '../pokemon/list';
 
 /**

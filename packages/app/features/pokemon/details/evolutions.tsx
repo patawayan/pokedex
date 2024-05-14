@@ -1,5 +1,5 @@
 import { ScrollView, Tabs, TabsContentProps, YStack, Text, Spinner } from '@my/ui';
-import { PokeListItem } from '../list';
+import { PokeListItem } from '../list-item';
 import { Pokemon } from 'app/utils/types';
 import { useState, useEffect, useContext } from 'react';
 import { PokemonContext } from 'app/provider/Pokemon';

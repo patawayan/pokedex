@@ -12,6 +12,7 @@ import {
   ZStack,
   GetRef,
   TamaguiElement,
+  Text,
 } from '@my/ui';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { PokemonContext } from 'app/provider/Pokemon';
@@ -19,11 +20,12 @@ import { PokedexSvg } from 'app/assets/pokedexSvg';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { createParam } from 'solito';
 import { useRouter } from 'solito/router';
-import { PokemonTypesList } from './tag';
-import { PokemonDetailsTabs } from './details/tabs';
+import { PokemonTypesList } from '../tag';
+import { PokemonDetailsTabs } from './tabs';
 import { paddedNum } from 'app/utils/textUtils';
-import { LoadingScreen } from '../loading/screen';
-import { formatLabelName } from './details/detail';
+import { LoadingScreen } from '../../loading/screen';
+import { formatLabelName } from './detail';
+import { AboutContent } from './about';
 
 /**
  * Used to get the id from the url
@@ -66,18 +68,18 @@ export const PokemonScreen = () => {
   }, [id]);
 
   return currentPokemon ? (
-    <YStack h="100vh" w="100%" ai="center" jc="center" bc="$yellow">
-      <XStack gap="$2" p="$4" ai="center" w="100%" zIndex={100} bc="$yellow">
+    <YStack ai="center" jc="center" bc="$yellow">
+      <XStack gap="$2" p="$4" ai="center" w="100%" zIndex={100} bc="$yellow" pt="$4">
         <ArrowLeft onTouchEnd={goBack} />
-        <H3 fontWeight="700" lineHeight="$md" size="$4.5">
+        <Text fontWeight="700" lineHeight="$md" fontSize="$4.5" h="auto">
           {currentPokemon
             ? `${formatLabelName(currentPokemon.name)} #${paddedNum(currentPokemon.id)}`
             : 'Pokemon'}
-        </H3>
+        </Text>
       </XStack>
       {/** @ts-ignore */}
       <ScrollView ref={scrollRef} flexGrow={1} contentContainerStyle={{ flexGrow: 1 }}>
-        <ZStack minWidth="100vw" minHeight="100px" height="100px" overflow="hidden">
+        <ZStack minWidth="100vw" minHeight="$25" height="$25" overflow="hidden">
           <View y={-70} w="min-content">
             <PokedexSvg height={235} width={235} fillOpacity={0.5} />
           </View>

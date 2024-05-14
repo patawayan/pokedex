@@ -19,6 +19,9 @@ export function LoadingScreen() {
     return () => clearInterval(interval);
   }, []);
 
+  /**
+   * Convert degrees to string for use with `rotate`
+   */
   const degreeString = useMemo(() => `${degree}deg`, [degree]);
 
   return (

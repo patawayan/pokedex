@@ -640,7 +640,7 @@ export interface Chain {
   /**
    * The next link in the evolution chain
    */
-  evolved_to: Chain[];
+  evolves_to: Chain[];
   /**
    * Whether this link in the evolution chain is a baby form
    */
