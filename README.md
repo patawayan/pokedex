@@ -4,13 +4,15 @@ A web/native app for displaying pokemon and their basic data like base stats, ev
 
 Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [PokeAPI](https://pokeapi.co/docs/v2) for retrieving the data.
 
+> **_NOTE:_** As of 05/15/2024, only the web app version is fully functional.
+
 > **_NOTE:_** Native app currently only developed for Android OS.
 
 ## Table of Contents
 
 1. [Development](#development)
    - [Requirements](#requirements)
-     - [Android Development Requirements](#android-development-requirements)
+     - [Android Development Requirements](#requirements-for-android-development)
    - [Setup](#setup)
 1. [Code Structure](#code-structure)
    - [Directory Structure](#directory-structure)
@@ -19,6 +21,9 @@ Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [Po
    - [Search Function](#search-function)
    - [Pokemon Details Page](#pokemon-details-page)
    - [Evolution Tab](#evolution-tab)
+1. [Live Deployment](#live-deployment)
+   - [Vercel](#vercel)
+   - [Mobile App](#mobile-app)
 
 ## Development
 
