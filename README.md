@@ -52,7 +52,7 @@ Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [Po
          yarn android
        ```
 
-### Code Structure
+## Code Structure
 
 ```
 pokedex/
@@ -129,3 +129,13 @@ Except for when the value surpasses the length of it's container (e.g. high HP p
 
 Reuses the Pokemon List Item component to display the evolution chain in a mini PokeList.
 Clicking on a pokemon in the chain then redirects to that pokemon's details screen.
+
+## Live Deployment
+
+#### Vercel
+
+- https://pokedex-next-seven-orcin.vercel.app/
+
+#### Appetize.io
+
+- // TBD
