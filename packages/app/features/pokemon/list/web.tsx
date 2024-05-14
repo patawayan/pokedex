@@ -2,31 +2,23 @@
 
 import {
   Text,
-  View,
-  XStack,
   YStack,
   Image,
   ScrollView,
-  ZStack,
   TamaguiElement,
   GetRef,
   Spinner,
+  ViewProps,
 } from '@my/ui';
 import { Pokemon } from 'app/utils/types';
-import { capitalize, paddedNum } from 'app/utils/textUtils';
-import { useCallback, useContext, useEffect, useRef } from 'react';
-import { PokemonTypesList } from './tag';
-import { PokedexSvg } from 'app/assets/pokedexSvg';
+import { useContext, useEffect, useRef } from 'react';
 import { PokemonContext } from 'app/provider/Pokemon';
-import { useRouter } from 'solito/router';
-import { formatLabelName } from './details/detail';
-import { Link } from 'solito/link';
 import { PokeListItem } from './list-item';
 
 /**
- * Main list of pokemon
+ * Web version of PokeList
  */
-export const PokeList = () => {
+export const PokeListWeb = (props: ViewProps) => {
   const { pokeData, loadMorePokemon, isThereMoreToLoad, isLoading } = useContext(PokemonContext);
 
   /** Reference to the scroll element */
@@ -54,7 +46,7 @@ export const PokeList = () => {
   }, [pokeData, scrollRef.current]);
 
   return (
-    <ScrollView flexGrow={1}>
+    <YStack {...props} overflow="scroll">
       <YStack ai="center" gap="$2" pt="$5" pb="$13" borderRadius={'$0.75'}>
         {pokeData?.map((item: Pokemon, index) => (
           <PokeListItem key={`${item.name}-${item.id}`} pokemon={item}>
@@ -71,6 +63,6 @@ export const PokeList = () => {
           {pokeData.length === 0 && !isLoading && <Text color="$hillary">No results found</Text>}
         </YStack>
       </YStack>
-    </ScrollView>
+    </YStack>
   );
 };

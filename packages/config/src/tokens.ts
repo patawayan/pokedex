@@ -7,19 +7,32 @@ import { createTokens } from 'tamagui';
  *
  * @param until the number of sizes to generate
  */
-const generateSizes = (until = 100) => {
-  const sizes = {
-    0: 0,
-    0.25: 1,
-    0.5: 2,
-    0.75: 3,
-  };
-
-  for (let i = 1; i < until; i += 0.5) {
-    sizes[i] = i * 4;
-  }
-
-  return sizes;
+const defaultSizes = {
+  none: 0,
+  full: '100%',
+  0: 0,
+  0.25: 1,
+  0.5: 2,
+  0.75: 3,
+  1: 4,
+  1.5: 6,
+  2: 8,
+  2.5: 10,
+  3: 12,
+  3.75: 14,
+  4: 16,
+  4.5: 18,
+  5: 20,
+  6: 24,
+  7: 28,
+  7.5: 32,
+  10: 40,
+  14: 56,
+  15: 60,
+  19: 76,
+  25: 100,
+  35: 140,
+  55: 220,
 };
 
 /**
@@ -57,19 +70,15 @@ export const tokens = createTokens({
     summerSky: '#35ACE7',
   },
   radius: {
-    none: 0,
-    3.75: 15,
-    ...generateSizes(),
+    ...defaultSizes,
   },
   size: {
-    none: 0,
     true: 12,
-    ...generateSizes(),
+    ...defaultSizes,
   },
   space: {
-    none: 0,
     true: 12,
-    ...generateSizes(),
+    ...defaultSizes,
   },
   zIndex: baseTokens.zIndex,
 });

@@ -3,10 +3,10 @@
 import { Text, View, XStack, YStack, Image, ZStack } from '@my/ui';
 import { Pokemon } from 'app/utils/types';
 import { paddedNum } from 'app/utils/textUtils';
-import { PokemonTypesList } from './tag';
 import { PokedexSvg } from 'app/assets/pokedexSvg';
-import { formatLabelName } from './details/detail';
 import { Link } from 'solito/link';
+import { formatLabelName } from '../details/detail';
+import { PokemonTypesList } from '../tag';
 
 /**
  * Pokemon List Card with basic info

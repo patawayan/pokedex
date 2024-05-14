@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "pokedex",
-    "slug": "patawayan.pokedex",
+    "slug": "pokedex",
     "scheme": "patawayan.pokedex",
     "version": "1.0.0",
     "orientation": "portrait",

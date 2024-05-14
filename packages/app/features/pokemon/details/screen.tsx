@@ -68,8 +68,17 @@ export const PokemonScreen = () => {
   }, [id]);
 
   return currentPokemon ? (
-    <YStack ai="center" jc="center" bc="$yellow">
-      <XStack gap="$2" p="$4" ai="center" w="100%" zIndex={100} bc="$yellow" pt="$4">
+    <YStack ai="center" jc="center" bc="$yellow" h="100vh">
+      <XStack
+        flexBasis="$14"
+        gap="$2"
+        p="$4"
+        ai="center"
+        w="100%"
+        zIndex={100}
+        bc="$yellow"
+        pt="$4"
+      >
         <ArrowLeft onTouchEnd={goBack} />
         <Text fontWeight="700" lineHeight="$md" fontSize="$4.5" h="auto">
           {currentPokemon

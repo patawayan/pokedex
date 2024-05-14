@@ -4,7 +4,7 @@ import 'raf/polyfill';
 import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme';
 import { Provider } from 'app/provider';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { SolitoAppProps } from 'solito';
 import useIsDesktop from 'app/hooks/useIsDesktop';
 import { DesktopScreen } from 'app/features/desktop/screen';

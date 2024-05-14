@@ -1,10 +1,11 @@
 import { ScrollView, Tabs, TabsContentProps, YStack, Text, Spinner } from '@my/ui';
-import { PokeListItem } from '../list-item';
+
 import { Pokemon } from 'app/utils/types';
 import { useState, useEffect, useContext } from 'react';
 import { PokemonContext } from 'app/provider/Pokemon';
 import { AppContext } from 'app/provider/App';
 import { EvolutionChain, Chain, NameUrl, PokemonSpecies } from 'app/utils/types';
+import { PokeListItem } from '../list/list-item';
 
 /**
  * Evolution Chain of the current Pokemon
@@ -84,7 +85,7 @@ export const EvolutionsContent = (props: TabsContentProps) => {
 
   return (
     <Tabs.Content {...props}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 10 }}>
         <YStack height="100%" justifyContent="center" py="$5" gap="$2.5" ai="center">
           {currentPokemonSpecies &&
             evolutions.map((pokemon) => (

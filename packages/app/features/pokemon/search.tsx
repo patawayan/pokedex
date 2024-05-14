@@ -19,11 +19,11 @@ const SearchInput = styled(Input, {
 /**
  * Search Component for the Pokedex
  */
-export const SearchComponent = () => {
+export const SearchComponent = (props: React.ComponentProps<typeof YStack>) => {
   const { searchValue, setSearchValue } = useContext(PokemonSearchContext);
 
   return (
-    <YStack bc="$yellow" p="$4" jc="center">
+    <YStack bc="$yellow" p="$4" jc="center" {...props}>
       <XStack gap="$1" ai="center" bc="$white" p="$2.5" borderRadius="$15">
         <Search size="$6" color="$grayLight" />
         <SearchInput

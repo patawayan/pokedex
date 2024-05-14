@@ -1,6 +1,6 @@
 import { YStack } from '@my/ui';
+import { PokeList } from '../pokemon/list/list';
 import { SearchComponent } from '../pokemon/search';
-import { PokeList } from '../pokemon/list';
 
 /**
  * Pokedex Home Screen
@@ -8,8 +8,8 @@ import { PokeList } from '../pokemon/list';
 export const HomeScreen = () => {
   return (
     <YStack h="100vh">
-      <SearchComponent />
-      <PokeList />
+      <SearchComponent flexBasis="$19" />
+      <PokeList flexBasis="calc(100vh - 76px)" />
     </YStack>
   );
 };
