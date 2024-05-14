@@ -1,95 +1,131 @@
-# Tamagui + Solito + Next + Expo Monorepo
+# Pokedex
 
-```sh
-npm create tamagui
+A web/native app for displaying pokemon and their basic data like base stats, evolution chain, etc.
+
+Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [PokeAPI](https://pokeapi.co/docs/v2) for retrieving the data.
+
+> **_NOTE:_** Native app currently only developed for Android OS.
+
+## Table of Contents
+
+1. [Development](#development)
+   - [Requirements](#requirements)
+     - [Android Development Requirements](#android-development-requirements)
+   - [Setup](#setup)
+1. [Code Structure](#code-structure)
+   - [Directory Structure](#directory-structure)
+1. [Design](#design)
+   - [PokeList](#pokelist)
+   - [Search Function](#search-function)
+   - [Pokemon Details Page](#pokemon-details-page)
+   - [Evolution Tab](#evolution-tab)
+
+## Development
+
+### Requirements
+
+- Yarn
+- Node
+
+#### (Requirements for Android development)
+
+- JDK 11
+- Android Studio
+  - https://docs.expo.dev/workflow/android-studio-emulator/#set-up-android-studios-tools
+  - https://docs.expo.dev/workflow/android-studio-emulator/#set-up-a-virtual-device
+
+### Setup
+
+1. Install all dependencies
+   ```
+     yarn install:all
+   ```
+2. Run the app
+   - On web:
+     ```
+       yarn web
+     ```
+   - On virtual android device:
+     - Open a virtual device first
+     - Run app:
+       ```
+         yarn android
+       ```
+
+### Code Structure
+
+```
+pokedex/
+├── apps/
+│   ├── expo/
+│   │   ├── app/
+│   │   ├── assets/
+│   │   └── ...
+│   │
+│   ├── next/
+│   │   ├── pages/
+│   │   ├── public/
+│   │   └── ...
+│   └── ...
+│
+├── packages/
+│   ├── app/
+│   ├── config/
+│   ├── ui/
+│   └── ...
+│
+└── ...
 ```
 
-## 🔦 About
+`apps/expo`: Contains the source code for the expo/react native version of the app.
 
-This monorepo is a starter for an Expo + Next.js + Tamagui + Solito app.
+`apps/next`: Contains the source code for the web version of the app.
 
-Many thanks to [@FernandoTheRojo](https://twitter.com/fernandotherojo) for the Solito starter monorepo which this was forked from. Check out his [talk about using expo + next together at Next.js Conf 2021](https://www.youtube.com/watch?v=0lnbdRweJtA).
+`packages/app`: Contains the shared components, assets, utilities, etc common between the web and mobile app.
 
-## 📦 Included packages
+`packages/config`: Contains Tamagui configuration files.
 
-- [Tamagui](https://tamagui.dev) 🪄
-- [solito](https://solito.dev) for cross-platform navigation
-- Expo SDK
-- Next.js
-- Expo Router
+`packages/ui`: Contains files and configuration files specific to `@my/ui` dependency.
 
-## 🗂 Folder layout
+## Design
 
-The main apps are:
+#### PokeList
 
-- `expo` (native)
-- `next` (web)
+The PokeList loads in the first 20 pokemon fetched from PokeAPI.
+When scrolling further down the list (specifically when approaching within 10 pokemon from the end), the app then loads the next 20 pokemon.
 
-- `packages` shared packages across apps
-  - `ui` includes your custom UI kit that will be optimized by Tamagui
-  - `app` you'll be importing most files from `app/`
-    - `features` (don't use a `screens` folder. organize by feature.)
-    - `provider` (all the providers that wrap the app, and some no-ops for Web.)
+---
 
-You can add other folders inside of `packages/` if you know what you're doing and have a good reason to.
+#### Search function
 
-## 🏁 Start the app
+Search function only searches by name of pokemon.
+It does substring matching i.e. it searches for the search value as a substring in the pokemon's name.
 
-- Install dependencies: `yarn`
+---
 
-- Next.js local dev: `yarn web`
+#### Pokemon Details Page
 
-To run with optimizer on in dev mode (just for testing, it's faster to leave it off): `yarn web:extract`. To build for production `yarn web:prod`.
+The header section (Back Button + Pokemon Name), is stickied to the top. This is so that the user will always be able to know which pokemon's details they're viewing and also to make it easier to go back to the PokeList.
 
-To see debug output to verify the compiler, add `// debug` as a comment to the top of any file.
+The page will display a loading screen first if the pokemon's data is not loaded in yet.
 
-- Expo local dev: `yarn native`
+---
 
-## UI Kit
+#### About Tab
 
-Note we're following the [design systems guide](https://tamagui.dev/docs/guides/design-systems) and creating our own package for components.
+The Pokemon Species data will only start being retrieved once the base Pokemon data is done loading.
+While the species data is not available yet, a Spinner is displayed inside the tab under `Height`.
 
-See `packages/ui` named `@my/ui` for how this works.
+---
 
-## 🆕 Add new dependencies
+#### Base Stats Tab
 
-### Pure JS dependencies
+The numerical value of each stat is used to set the length of the green bars of each stat.
+Except for when the value surpasses the length of it's container (e.g. high HP pokemon like `Blissey`). In that case, the green bar is limited to the max width of the parent container.
 
-If you're installing a JavaScript-only dependency that will be used across platforms, install it in `packages/app`:
+---
 
-```sh
-cd packages/app
-yarn add date-fns
-cd ../..
-yarn
-```
+#### Evolution Tab
 
-### Native dependencies
-
-If you're installing a library with any native code, you must install it in `expo`:
-
-```sh
-cd apps/expo
-yarn add react-native-reanimated
-cd ..
-yarn
-```
-
-## Update new dependencies
-
-### Pure JS dependencies
-
-```sh
-yarn upgrade-interactive
-```
-
-You can also install the native library inside of `packages/app` if you want to get autoimport for that package inside of the `app` folder. However, you need to be careful and install the _exact_ same version in both packages. If the versions mismatch at all, you'll potentially get terrible bugs. This is a classic monorepo issue. I use `lerna-update-wizard` to help with this (you don't need to use Lerna to use that lib).
-
-You may potentially want to have the native module transpiled for the next app. If you get error messages with `Cannot use import statement outside a module`, you may need to use `transpilePackages` in your `next.config.js` and add the module to the array there.
-
-### Deploying to Vercel
-
-- Root: `apps/next`
-- Install command to be `yarn set version stable && yarn install`
-- Build command: leave default setting
-- Output dir: leave default setting
+Reuses the Pokemon List Item component to display the evolution chain in a mini PokeList.
+Clicking on a pokemon in the chain then redirects to that pokemon's details screen.
