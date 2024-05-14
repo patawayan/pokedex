@@ -138,4 +138,4 @@ Clicking on a pokemon in the chain then redirects to that pokemon's details scre
 
 #### Appetize.io
 
-- // TBD
+- // TODO: Setup live app
