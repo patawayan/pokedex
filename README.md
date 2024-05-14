@@ -30,7 +30,9 @@ Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [Po
 #### (Requirements for Android development)
 
 - JDK 11
+  - REQUIRED setup environment variable JAVA_HOME
 - Android Studio
+  - REQUIRED set environment variable ANDROID_HOME
   - https://docs.expo.dev/workflow/android-studio-emulator/#set-up-android-studios-tools
   - https://docs.expo.dev/workflow/android-studio-emulator/#set-up-a-virtual-device
 
@@ -38,6 +40,7 @@ Implemented using the [Tamagui](https://tamagui.dev/) free template and uses [Po
 
 1. Install all dependencies
    ```
+     yarn
      yarn install:all
    ```
 2. Run the app
